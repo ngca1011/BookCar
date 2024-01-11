@@ -8,6 +8,7 @@ const NavigationBar = (): React.JSX.Element => {
         flexDirection: 'row',
         backgroundColor: 'blue',
         alignItems: 'center',
+        paddingBottom: 40
       }}
     >
       <Image
