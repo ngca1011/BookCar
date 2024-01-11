@@ -45,6 +45,7 @@ const Home = ({ navigation }: Props): React.JSX.Element => {
       borderColor: 'black',
       borderRadius: 6,
       left: 160,
+      color: 'green',
     },
     textContainer: {
       fontWeight: 'bold',
