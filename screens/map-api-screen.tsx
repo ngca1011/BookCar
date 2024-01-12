@@ -4,8 +4,9 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { GooglePlacesInput } from '../components/map-input';
+import {MapviewScreen} from '../components/map-view';
 
-const Googlemap = () => {
+const GooglemapScreen = () => {
   const [initialPosition, setInitialPosition] = useState({
     latitude: 28.5995001,
     longitude: 77.3315623,
@@ -55,22 +56,7 @@ const Googlemap = () => {
         <GooglePlacesInput/>
       </View>
       <View style={styles.mapContainer}>
-        <MapView
-          style={styles.mapStyle}
-          showsUserLocation={true}
-          zoomEnabled={true}
-          zoomControlEnabled={true}
-          provider={PROVIDER_GOOGLE}
-          initialRegion={initialPosition}
-        >
-          <Marker
-            coordinate={{
-              latitude: initialPosition.latitude,
-              longitude: initialPosition.longitude,
-            }}
-            title="Current Location"
-          />
-        </MapView>
+        <MapviewScreen initialRegion = {initialPosition}/>
       </View>
     </View>
   );
@@ -78,17 +64,17 @@ const Googlemap = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+
   },
   mapContainer: {
-    flex: 0.8,
+
   },
   inputContainer: {
-    flex: 0.2,
+
   },
   mapStyle: {
-    flex: 1,
+    
   },
 });
 
-export { Googlemap };
+export { GooglemapScreen };

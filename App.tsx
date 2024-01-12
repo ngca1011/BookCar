@@ -2,7 +2,7 @@ import React from 'react';
 import { Home } from './screens/home-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
-import { Googlemap } from './screens/map-api-screen';
+import { GooglemapScreen } from './screens/map-api-screen';
 import { createStackNavigator } from '@react-navigation/stack';
 
 export type RootStackParamList = {
@@ -17,7 +17,7 @@ const App = (): React.JSX.Element => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-        <Stack.Screen name="Googlemap" component={Googlemap} />
+        <Stack.Screen name="Googlemap" component={GooglemapScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
