@@ -1,53 +1,46 @@
-import React from 'react';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GOOGLEMAP_API_KEY } from '@env';
-import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { useLocation } from '../custom-hooks/set-location';
+import { styles, fromInputBoxStyles, toInputBoxStyles } from './styles-map-input';
 
 const GooglePlacesInput = () => {
+  const { origin, destination, setOriginLocation, setDestinationLocation } = useLocation();
+
   return (
     <View style={styles.container}>
-      <View style={styles.fromBarContainer}>
+      <View>
         <GooglePlacesAutocomplete
           placeholder="Điểm đi?"
-          onPress={(data, details = null) => {
-            console.log(data, details);
-          }}
+          styles={fromInputBoxStyles}
+          fetchDetails={true}
+          onPress={(data, details = null) => setOriginLocation(data, details)}
+          enablePoweredByContainer={false}
           query={{
             key: GOOGLEMAP_API_KEY,
             language: 'en',
           }}
-          styles={styles.inputStyles}
+          nearbyPlacesAPI="GooglePlacesSearch"
+          debounce={400}
         />
       </View>
-      <View style={styles.toBarContainer}>
+      <View>
         <GooglePlacesAutocomplete
           placeholder="Điểm đến?"
-          onPress={(data, details = null) => {
-            console.log(data, details);
-          }}
+          styles={toInputBoxStyles}
+          fetchDetails={true}
+          onPress={(data, details = null) => setDestinationLocation(data, details)}
           query={{
             key: GOOGLEMAP_API_KEY,
             language: 'en',
           }}
-          styles={styles.inputStyles}
+          nearbyPlacesAPI="GooglePlacesSearch"
         />
-      </View>
+      </View> 
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-  },
-  fromBarContainer: {
-  },
-  toBarContainer: {
-    top: 50,
-  },
-  inputStyles: {
-
-  }
-});
-
 export { GooglePlacesInput };
+

@@ -26,6 +26,7 @@ const GooglemapScreen = () => {
         };
 
         setInitialPosition(initialPosition);
+        
       },
       (error) => {
         console.error('Error getting location:', error);
@@ -55,22 +56,20 @@ const GooglemapScreen = () => {
       <View style={styles.inputContainer}>
         <GooglePlacesInput/>
       </View>
-      <View style={styles.mapContainer}>
-        <MapviewScreen initialRegion = {initialPosition}/>
-      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-
+    flex: 1,
   },
   mapContainer: {
 
   },
   inputContainer: {
-
+    flex: 1,
+    backgroundColor: 'white',
   },
   mapStyle: {
     

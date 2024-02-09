@@ -13,7 +13,8 @@ const Home = ({ navigation }: Props): React.JSX.Element => {
   const styles = StyleSheet.create({
     container: {
       flexDirection: 'row',
-      padding: 20,
+      padding: 15,
+      top: 20,
     },
     iconContainer: {
       marginRight: 20,
