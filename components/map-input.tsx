@@ -2,9 +2,9 @@ import { GOOGLEMAP_API_KEY } from '@env';
 import React from 'react';
 import { Button, View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { useLocation } from '../custom-hooks/set-location';
 import { GooglemapScreenNavigationProp } from '../screens/home-screen';
 import { Coordinates } from '../utils/consts';
+import { useLocationContext } from './location-context';
 import { fromInputBoxStyles, styles, toInputBoxStyles } from './styles/styles-map-input';
 
 export interface GooglePlacesInputProps {
@@ -12,15 +12,15 @@ export interface GooglePlacesInputProps {
   navigation: GooglemapScreenNavigationProp;
 }
 
-const GooglePlacesInput:React.FC<GooglePlacesInputProps> = ({currentLocation, navigation}) => {
-  const { origin, destination, setOriginLocation, setDestinationLocation } = useLocation();
+const GooglePlacesInput: React.FC<GooglePlacesInputProps> = ({ currentLocation, navigation }) => {
+  const { origin, destination, setOriginLocation, setDestinationLocation } = useLocationContext();
 
   const currentPlace = {
     description: 'Vị trí hiện tại',
     geometry: { location: { lat: currentLocation.latitude, lng: currentLocation.longitude } },
   };
 
-  const handleConfirm = ():void => {
+  const handleConfirm = (): void => {
     navigation.navigate('Googlemap_view');
   };
 
@@ -28,12 +28,12 @@ const GooglePlacesInput:React.FC<GooglePlacesInputProps> = ({currentLocation, na
     <View style={styles.container}>
       <View>
         <GooglePlacesAutocomplete
-          placeholder={"Điểm đi?"}
+          placeholder={'Điểm đi?'}
           styles={fromInputBoxStyles}
           fetchDetails={true}
-          onPress={(data, details = null) => {setOriginLocation(data, details)
-            console.log(origin?.description)}
-          }
+          onPress={(data, details) => {
+            setOriginLocation(data, details);
+          }}
           enablePoweredByContainer={false}
           query={{
             key: GOOGLEMAP_API_KEY,
@@ -49,20 +49,17 @@ const GooglePlacesInput:React.FC<GooglePlacesInputProps> = ({currentLocation, na
           placeholder="Điểm đến?"
           styles={toInputBoxStyles}
           fetchDetails={true}
-          onPress={(data, details = null) => setDestinationLocation(data, details)}
+          onPress={(data, details) => setDestinationLocation(data, details)}
           query={{
             key: GOOGLEMAP_API_KEY,
             language: 'en',
           }}
           nearbyPlacesAPI="GooglePlacesSearch"
         />
-      </View> 
-      {origin && destination && (
-        <Button title="Confirm" onPress={handleConfirm} />
-      )}
+      </View>
+      {origin && destination && <Button title="Confirm" onPress={handleConfirm} />}
     </View>
   );
 };
 
 export { GooglePlacesInput };
-

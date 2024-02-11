@@ -21,7 +21,7 @@ export const fromInputBoxStyles = StyleSheet.create({
   textInputContainer: {
     paddingHorizontal: 20,
     paddingBottom: 0,
-  }
+  },
 });
 export const toInputBoxStyles = StyleSheet.create({
   container: {
@@ -37,5 +37,5 @@ export const toInputBoxStyles = StyleSheet.create({
   textInputContainer: {
     paddingHorizontal: 20,
     paddingBottom: 0,
-  }
+  },
 });

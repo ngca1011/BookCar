@@ -5,24 +5,27 @@ import 'react-native-gesture-handler';
 import { MapviewScreen } from './components/map-view';
 import { Home } from './screens/home-screen';
 import { GooglemapScreen } from './screens/map-api-screen';
+import { LocationProvider } from './components/location-context';
 
 export type RootStackParamList = {
   Home: undefined;
   Googlemap: undefined;
-  Googlemap_view: undefined; 
+  Googlemap_view: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const App = (): React.JSX.Element => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-        <Stack.Screen name="Googlemap" component={GooglemapScreen} />
-        <Stack.Screen name="Googlemap_view" component={MapviewScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <LocationProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+          <Stack.Screen name="Googlemap" component={GooglemapScreen} />
+          <Stack.Screen name="Googlemap_view" component={MapviewScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </LocationProvider>
   );
 };
 

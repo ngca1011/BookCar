@@ -72,7 +72,6 @@ const Home = ({ navigation }: HomeProps): React.JSX.Element => {
 
 export { Home };
 
-
 const newLocal = StyleSheet.create({
   container: {
     flexDirection: 'row',
