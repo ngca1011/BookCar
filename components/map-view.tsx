@@ -1,41 +1,40 @@
+import React, { ReactElement } from 'react';
 import { StyleSheet, View } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
+import { useLocation } from '../custom-hooks/set-location';
+import { GOOGLEMAP_API_KEY } from '@env';
+import MapView, { Marker, Region } from 'react-native-maps';
 
-const MapviewScreen = (props: {
-  initialRegion: {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number;
-    longitudeDelta: number;
+const MapviewScreen = (): ReactElement => {
+  const { origin, destination } = useLocation();
+
+  const initialRegion = {
+    latitude: 40.7128,
+    longitude: -74.0060,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
   };
-}): React.JSX.Element => {
-  const initialPosition = props.initialRegion;
 
   return (
-    <MapView
-      style={styles.mapStyle}
-      showsUserLocation={true}
-      zoomEnabled={true}
-      zoomControlEnabled={true}
-      provider={PROVIDER_GOOGLE}
-      initialRegion={initialPosition}
-    >
+    <View style={styles.container}>
+    <MapView style={styles.map} initialRegion={initialRegion}>
+      {/* Example marker */}
       <Marker
-        coordinate={{
-          latitude: initialPosition.latitude,
-          longitude: initialPosition.longitude,
-        }}
-        title="Current Location"
+        coordinate={{ latitude: 40.7128, longitude: -74.0060 }}
+        title="New York City"
+        description="The Big Apple"
       />
     </MapView>
+  </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
-  mapContainer: {},
-  inputContainer: {},
-  mapStyle: {},
+  container: {
+    flex: 1,
+  },
+  map: {
+    flex: 1,
+  },
 });
-
 export { MapviewScreen };

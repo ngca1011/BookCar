@@ -1,13 +1,15 @@
-import React from 'react';
-import { Home } from './screens/home-screen';
 import { NavigationContainer } from '@react-navigation/native';
-import 'react-native-gesture-handler';
-import { GooglemapScreen } from './screens/map-api-screen';
 import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import 'react-native-gesture-handler';
+import { MapviewScreen } from './components/map-view';
+import { Home } from './screens/home-screen';
+import { GooglemapScreen } from './screens/map-api-screen';
 
 export type RootStackParamList = {
-  Home: undefined; // undefined because you aren't passing any params to the home screen
+  Home: undefined;
   Googlemap: undefined;
+  Googlemap_view: undefined; 
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -18,6 +20,7 @@ const App = (): React.JSX.Element => {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Googlemap" component={GooglemapScreen} />
+        <Stack.Screen name="Googlemap_view" component={MapviewScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

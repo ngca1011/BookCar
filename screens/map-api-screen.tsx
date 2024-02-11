@@ -1,23 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Platform, Alert } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
-import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import React, { useEffect, useState } from 'react';
+import { Alert, Platform, StyleSheet, View } from 'react-native';
+import { PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import { GooglePlacesInput } from '../components/map-input';
-import {MapviewScreen} from '../components/map-view';
+import { Coordinates } from '../utils/consts';
+import { GooglemapScreenNavigationProp } from './home-screen';
 
-const GooglemapScreen = () => {
-  const [initialPosition, setInitialPosition] = useState({
+interface GooglemapScreenProps {
+  navigation: GooglemapScreenNavigationProp; 
+}
+
+const GooglemapScreen: React.FC<GooglemapScreenProps> = ({ navigation }) => {
+  const [initialPosition, setInitialPosition] = useState<Coordinates>({
     latitude: 28.5995001,
     longitude: 77.3315623,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
-  });
+  })
 
   const locateCurrentLocation = () => {
     Geolocation.getCurrentPosition(
       (position) => {
-        console.log(JSON.stringify(position));
         let initialPosition = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -26,7 +29,6 @@ const GooglemapScreen = () => {
         };
 
         setInitialPosition(initialPosition);
-        
       },
       (error) => {
         console.error('Error getting location:', error);
@@ -54,7 +56,7 @@ const GooglemapScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <GooglePlacesInput/>
+        <GooglePlacesInput currentLocation = {initialPosition} navigation = {navigation}/>
       </View>
     </View>
   );
@@ -77,3 +79,4 @@ const styles = StyleSheet.create({
 });
 
 export { GooglemapScreen };
+
