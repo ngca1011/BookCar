@@ -5,6 +5,7 @@ import { PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import { GooglePlacesInput } from '../components/map-input';
 import { Coordinates } from '../utils/consts';
 import { GooglemapScreenNavigationProp } from './home-screen';
+import { MapviewScreen } from '../components/map-view';
 
 interface GooglemapScreenProps {
   navigation: GooglemapScreenNavigationProp;
@@ -50,26 +51,14 @@ const GooglemapScreen: React.FC<GooglemapScreenProps> = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        {initialPosition && (
-          <GooglePlacesInput currentLocation={initialPosition} navigation={navigation} />
-        )}
-      </View>
+    <View style={{ flex: 1 }}>
+      {initialPosition && (
+        <GooglePlacesInput currentLocation={initialPosition} navigation={navigation} />
+      )}
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  mapContainer: {},
-  inputContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  mapStyle: {},
-});
 
 export { GooglemapScreen };
+

@@ -1,6 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { RootStackParamList } from '../app.tsx';
+import { RootStackParamList } from '../app';
 import { NavigationBar } from '../components/navigationbar';
 
 export type GooglemapScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;

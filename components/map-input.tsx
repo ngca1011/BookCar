@@ -1,6 +1,6 @@
 import { GOOGLEMAP_API_KEY } from '@env';
 import React from 'react';
-import { Button, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GooglemapScreenNavigationProp } from '../screens/home-screen';
 import { Coordinates } from '../utils/consts';
@@ -26,7 +26,7 @@ const GooglePlacesInput: React.FC<GooglePlacesInputProps> = ({ currentLocation, 
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={{ flex: 0.7 }}>
         <GooglePlacesAutocomplete
           placeholder={'Điểm đi?'}
           styles={fromInputBoxStyles}
@@ -41,8 +41,7 @@ const GooglePlacesInput: React.FC<GooglePlacesInputProps> = ({ currentLocation, 
           }}
           nearbyPlacesAPI="GooglePlacesSearch"
           predefinedPlaces={[currentPlace]}
-          debounce={400}
-        />
+          debounce={400} />
       </View>
       <View>
         <GooglePlacesAutocomplete
@@ -54,12 +53,17 @@ const GooglePlacesInput: React.FC<GooglePlacesInputProps> = ({ currentLocation, 
             key: GOOGLEMAP_API_KEY,
             language: 'en',
           }}
-          nearbyPlacesAPI="GooglePlacesSearch"
-        />
+          nearbyPlacesAPI="GooglePlacesSearch" />
       </View>
-      {origin && destination && <Button title="Confirm" onPress={handleConfirm} />}
+      <View style={{ paddingTop: 25 }}>
+        {origin && destination &&
+          <Pressable style={styles.button} onPress={handleConfirm}>
+            <Text style={styles.text}>Confirm</Text>
+          </Pressable>}
+      </View>
     </View>
   );
 };
 
 export { GooglePlacesInput };
+

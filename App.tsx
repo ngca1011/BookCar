@@ -2,10 +2,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import 'react-native-gesture-handler';
+import { LocationProvider } from './components/location-context';
 import { MapviewScreen } from './components/map-view';
 import { Home } from './screens/home-screen';
 import { GooglemapScreen } from './screens/map-api-screen';
-import { LocationProvider } from './components/location-context';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -21,8 +21,26 @@ const App = (): React.JSX.Element => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-          <Stack.Screen name="Googlemap" component={GooglemapScreen} />
-          <Stack.Screen name="Googlemap_view" component={MapviewScreen} />
+          <Stack.Screen name="Googlemap"
+            component={GooglemapScreen}
+            options={{
+              title: 'Chọn điểm đến',
+              headerStyle: {
+                backgroundColor: 'blue',
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="Googlemap_view" component={MapviewScreen}
+            options={{
+              title: '',
+              headerTransparent: true,
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </LocationProvider>

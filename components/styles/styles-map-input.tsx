@@ -4,13 +4,28 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: 'skyblue',
+    backgroundColor: 'white',
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderRadius: 4,
+    backgroundColor: '#0096FF',
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
   },
 });
 export const fromInputBoxStyles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingTop: 10,
+    paddingTop: 5,
     flex: 0,
   },
   textInput: {
@@ -23,10 +38,11 @@ export const fromInputBoxStyles = StyleSheet.create({
     paddingBottom: 0,
   },
 });
+
 export const toInputBoxStyles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingTop: 20,
+    paddingTop: 5,
     flex: 0,
   },
   textInput: {
