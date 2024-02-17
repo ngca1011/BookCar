@@ -17,11 +17,12 @@ const MapviewScreen = (): ReactElement => {
   //Fetching data
   const getVehicles = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/vehicles')
+      const response = await fetch('http://127.0.0.1:8000/vehicles/')
       const json = await response.json();
-      setData(json.vechiles);
-      console.log(json.vechiles);
-    } catch (error) {
+      console.log(json);
+      setData(json.vehicles);
+      console.log(json.vehicles);
+    } catch (error: any) {
       console.log(error);
     } finally {
       setLoading(false);
