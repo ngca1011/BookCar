@@ -1,34 +1,45 @@
 import { GOOGLEMAP_API_KEY } from '@env';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
-import { Vehicle, vehicleListData } from '../utils/db';
+import { Vehicle } from '../utils/consts';
 import { useLocationContext } from './location-context';
-
-const data = vehicleListData;
 
 const MapviewScreen = (): ReactElement => {
   const { origin, destination } = useLocationContext();
   const mapRef = useRef<MapView>(null);
   const [mapReady, setMapReady] = useState(false);
-  const [key, setKey] = useState(0);
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState<Vehicle[]>([]);
 
-  console.log(origin, destination);
+  //Fetching data
+  const getVehicles = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/vehicles')
+      const json = await response.json();
+      setData(json.vechiles);
+      console.log(json.vechiles);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getVehicles();
+  }, []);
+
+  //console.log(origin, destination);
   useEffect(() => {
     if (!origin || !destination) return;
 
-    //zoom and fit to markers
     mapRef.current?.fitToSuppliedMarkers(['origin', 'destination'], {
       edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
     });
-  }, [origin, destination, mapReady, key]);
-
-  //force re-render
-  useEffect(() => {
-    setKey(prevKey => prevKey + 1);
-  }, [mapReady]);
+  }, [origin, destination, mapReady,]);
 
   const handleMapReady = () => {
     setMapReady(true);
@@ -44,7 +55,7 @@ const MapviewScreen = (): ReactElement => {
       <View style={{ flex: 0.6 }}>
         <MapView
           ref={mapRef}
-          style={styles.map}
+          style={{ flex: 1 }}
           initialRegion={{
             latitude: origin?.location?.lat ?? 0,
             longitude: origin?.location?.lng ?? 0,
@@ -91,35 +102,37 @@ const MapviewScreen = (): ReactElement => {
         </MapView>
       </View>
       <View style={{ flex: 0.4, backgroundColor: 'white' }}>
-        <FlatList data={data}
-          keyExtractor={(item: Vehicle) => item.id}
-          renderItem={({ item: { id, title, preis, image_path }, item }) => (
-            <TouchableOpacity>
-              <Image
-                style={{
-                  width: 100,
-                  height: 100,
-                  resizeMode: "contain"
-                }}
-                source={image_path}
-              />
-            </TouchableOpacity>
-          )}
-        >
-        </FlatList>
+        {isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          <><Text style={{
+            fontSize: 14,
+            fontWeight: 'bold',
+            color: 'black',
+          }}>
+            Tiêu chuẩn
+          </Text>
+            <FlatList
+              data={data}
+              keyExtractor={({ id }) => id}
+              renderItem={({ item }) => (
+                <TouchableOpacity>
+                  <Image
+                    style={{
+                      width: 100,
+                      height: 100,
+                      resizeMode: "contain"
+                    }}
+                    source={item.image_path} />
+                </TouchableOpacity>
+              )}
+            >
+            </FlatList></>
+        )}
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  map: {
-    flex: 1,
-  },
-});
 
 export { MapviewScreen };
 

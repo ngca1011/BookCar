@@ -5,3 +5,9 @@ export type Coordinates = {
     longitudeDelta: number;
   };
   
+export type Vehicle = {
+    id: string,
+    title: string,
+    preis: number,
+    image_path: any,
+}
