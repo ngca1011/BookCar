@@ -5,7 +5,6 @@ import { PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import { GooglePlacesInput } from '../components/map-input';
 import { Coordinates } from '../utils/consts';
 import { GooglemapScreenNavigationProp } from './home-screen';
-import { MapviewScreen } from '../components/map-view';
 
 interface GooglemapScreenProps {
   navigation: GooglemapScreenNavigationProp;

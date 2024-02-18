@@ -5,7 +5,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import { Vehicle } from '../utils/consts';
-import { useLocationContext } from './location-context';
+import { useLocationContext } from '../components/location-context';
 
 const MapviewScreen = (): ReactElement => {
   const { origin, destination } = useLocationContext();
@@ -19,9 +19,7 @@ const MapviewScreen = (): ReactElement => {
     try {
       const response = await fetch('http://127.0.0.1:8000/vehicles/')
       const json = await response.json();
-      console.log(json);
       setData(json.vehicles);
-      console.log(json.vehicles);
     } catch (error: any) {
       console.log(error);
     } finally {
@@ -33,7 +31,7 @@ const MapviewScreen = (): ReactElement => {
     getVehicles();
   }, []);
 
-  //console.log(origin, destination);
+  //Zooming directions
   useEffect(() => {
     if (!origin || !destination) return;
 
@@ -46,6 +44,7 @@ const MapviewScreen = (): ReactElement => {
     setMapReady(true);
   }
 
+  //Handle Directionserror
   const handleDirectionsError = (error: any) => {
     //TODO: handle error here
     console.log("No directions found")
@@ -119,12 +118,8 @@ const MapviewScreen = (): ReactElement => {
               renderItem={({ item }) => (
                 <TouchableOpacity>
                   <Image
-                    style={{
-                      width: 100,
-                      height: 100,
-                      resizeMode: "contain"
-                    }}
-                    source={item.image_path} />
+                    style={{ width: 100, height: 100, resizeMode: "contain" }}
+                    source={{ uri: item.image_path }} />
                 </TouchableOpacity>
               )}
             >

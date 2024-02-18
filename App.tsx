@@ -3,9 +3,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import 'react-native-gesture-handler';
 import { LocationProvider } from './components/location-context';
-import { MapviewScreen } from './components/map-view';
 import { Home } from './screens/home-screen';
-import { GooglemapScreen } from './screens/map-api-screen';
+import { GooglemapScreen } from './screens/map-input-screen';
+import { MapviewScreen } from './screens/map-view-screen';
 
 export type RootStackParamList = {
   Home: undefined;
