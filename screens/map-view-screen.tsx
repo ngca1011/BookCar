@@ -4,8 +4,8 @@ import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-na
 import { FlatList } from 'react-native-gesture-handler';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
-import { Vehicle } from '../utils/consts';
 import { useLocationContext } from '../components/location-context';
+import { Vehicle } from '../utils/consts';
 
 const MapviewScreen = (): ReactElement => {
   const { origin, destination } = useLocationContext();
@@ -52,7 +52,7 @@ const MapviewScreen = (): ReactElement => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ flex: 0.6 }}>
+      <View style={{ flex: 0.5 }}>
         <MapView
           ref={mapRef}
           style={{ flex: 1 }}
@@ -101,7 +101,7 @@ const MapviewScreen = (): ReactElement => {
           }
         </MapView>
       </View>
-      <View style={{ flex: 0.4, backgroundColor: 'white' }}>
+      <View style={{ flex: 0.5, backgroundColor: 'white' }}>
         {isLoading ? (
           <ActivityIndicator />
         ) : (
@@ -114,12 +114,21 @@ const MapviewScreen = (): ReactElement => {
           </Text>
             <FlatList
               data={data}
-              keyExtractor={({ id }) => id}
+              keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
-                <TouchableOpacity>
+                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Image
                     style={{ width: 100, height: 100, resizeMode: "contain" }}
                     source={{ uri: item.image_path }} />
+
+                  <View style={{ marginLeft: 50 }}>
+                    <Text>{item.title}</Text>
+                    <Text>Giá siêu tốt</Text>
+                  </View>
+
+                  <Text style={{ marginLeft: 50 }}>
+                    {item.price}
+                  </Text>
                 </TouchableOpacity>
               )}
             >

@@ -8,6 +8,6 @@ export type Coordinates = {
 export type Vehicle = {
     id: string,
     title: string,
-    preis: number,
+    price: number,
     image_path: any,
 }
