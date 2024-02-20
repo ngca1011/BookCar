@@ -3,6 +3,7 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
+import { PickDateAndTime } from '../components/date-time-picker';
 import { useLocationContext } from '../components/location-context';
 import { VehiclesChoices } from '../components/vehicles-choices';
 
@@ -84,7 +85,11 @@ const MapviewScreen = (): ReactElement => {
         </MapView>
       </View>
       <View style={{ flex: 0.5, backgroundColor: 'white' }}>
-        <VehiclesChoices showDateTimePicker={showDateTimePicker} setShowDateTimePicker={setShowDateTimePicker} />
+        {showDateTimePicker ? (
+          <PickDateAndTime />
+        ) :
+          (<VehiclesChoices showDateTimePicker={showDateTimePicker} setShowDateTimePicker={setShowDateTimePicker} />)
+        }
       </View>
     </View>
   );

@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { Vehicle, VehiclesChoicesProps } from '../utils/consts';
+import { Vehicle } from '../utils/consts';
+import { VehiclesChoicesProps } from '../utils/consts';
 
 const VehiclesChoices: React.FC<VehiclesChoicesProps> = ({ showDateTimePicker, setShowDateTimePicker }) => {
 
     const [data, setData] = useState<Vehicle[]>([]);
     const [selected, setSelectedItem] = useState<Vehicle | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     //Fetching data
     const getVehicles = async () => {
@@ -17,6 +19,9 @@ const VehiclesChoices: React.FC<VehiclesChoicesProps> = ({ showDateTimePicker, s
         } catch (error: any) {
             console.log(error);
         }
+        finally {
+            setIsLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -25,7 +30,11 @@ const VehiclesChoices: React.FC<VehiclesChoicesProps> = ({ showDateTimePicker, s
 
     const handlePress = () => {
         setShowDateTimePicker(true)
-      }
+    }
+
+    if (isLoading) return (
+        <ActivityIndicator />
+    )
 
     return (
         <View>
@@ -74,4 +83,4 @@ const VehiclesChoices: React.FC<VehiclesChoicesProps> = ({ showDateTimePicker, s
     )
 }
 
-export { VehiclesChoices };
+export { VehiclesChoices }
