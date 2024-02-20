@@ -1,13 +1,6 @@
-import { StackNavigationProp } from '@react-navigation/stack';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { RootStackParamList } from '../app';
 import { NavigationBar } from '../components/navigationbar';
-
-export type GooglemapScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
-
-type HomeProps = {
-  navigation: GooglemapScreenNavigationProp;
-};
+import { HomeProps } from '../utils/consts';
 
 const Home = ({ navigation }: HomeProps): React.JSX.Element => {
   const styles = newLocal;

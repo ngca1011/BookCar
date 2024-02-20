@@ -1,35 +1,17 @@
 import { GOOGLEMAP_API_KEY } from '@env';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import { useLocationContext } from '../components/location-context';
-import { Vehicle } from '../utils/consts';
+import { VehiclesChoices } from '../components/vehicles-choices';
 
 const MapviewScreen = (): ReactElement => {
   const { origin, destination } = useLocationContext();
   const mapRef = useRef<MapView>(null);
   const [mapReady, setMapReady] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState<Vehicle[]>([]);
-
-  //Fetching data
-  const getVehicles = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:8000/vehicles/')
-      const json = await response.json();
-      setData(json.vehicles);
-    } catch (error: any) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    getVehicles();
-  }, []);
+  const [showDateTimePicker, setShowDateTimePicker] = useState(false);
 
   //Zooming directions
   useEffect(() => {
@@ -55,7 +37,7 @@ const MapviewScreen = (): ReactElement => {
       <View style={{ flex: 0.5 }}>
         <MapView
           ref={mapRef}
-          style={{ flex: 1 }}
+          style={{ flex: 1, opacity: showDateTimePicker ? 0.5 : 1 }}
           initialRegion={{
             latitude: origin?.location?.lat ?? 0,
             longitude: origin?.location?.lng ?? 0,
@@ -102,38 +84,7 @@ const MapviewScreen = (): ReactElement => {
         </MapView>
       </View>
       <View style={{ flex: 0.5, backgroundColor: 'white' }}>
-        {isLoading ? (
-          <ActivityIndicator />
-        ) : (
-          <><Text style={{
-            fontSize: 14,
-            fontWeight: 'bold',
-            color: 'black',
-          }}>
-            Tiêu chuẩn
-          </Text>
-            <FlatList
-              data={data}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Image
-                    style={{ width: 100, height: 100, resizeMode: "contain" }}
-                    source={{ uri: item.image_path }} />
-
-                  <View style={{ marginLeft: 50 }}>
-                    <Text>{item.title}</Text>
-                    <Text>Giá siêu tốt</Text>
-                  </View>
-
-                  <Text style={{ marginLeft: 50 }}>
-                    {item.price}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            >
-            </FlatList></>
-        )}
+        <VehiclesChoices showDateTimePicker={showDateTimePicker} setShowDateTimePicker={setShowDateTimePicker} />
       </View>
     </View>
   );

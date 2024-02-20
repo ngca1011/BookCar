@@ -2,7 +2,7 @@ import { GOOGLEMAP_API_KEY } from '@env';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { GooglemapScreenNavigationProp } from '../screens/home-screen';
+import { GooglemapScreenNavigationProp } from '../utils/consts';
 import { Coordinates } from '../utils/consts';
 import { useLocationContext } from './location-context';
 import { fromInputBoxStyles, styles, toInputBoxStyles } from './styles/styles-map-input';

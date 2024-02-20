@@ -1,14 +1,10 @@
 import Geolocation from '@react-native-community/geolocation';
 import React, { useEffect, useState } from 'react';
-import { Alert, Platform, StyleSheet, View } from 'react-native';
+import { Alert, Platform, View } from 'react-native';
 import { PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import { GooglePlacesInput } from '../components/map-input';
 import { Coordinates } from '../utils/consts';
-import { GooglemapScreenNavigationProp } from './home-screen';
-
-interface GooglemapScreenProps {
-  navigation: GooglemapScreenNavigationProp;
-}
+import { GooglemapScreenProps } from '../utils/consts';
 
 const GooglemapScreen: React.FC<GooglemapScreenProps> = ({ navigation }) => {
   const [initialPosition, setInitialPosition] = useState<Coordinates | null>(null);
