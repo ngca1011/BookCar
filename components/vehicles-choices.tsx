@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Vehicle } from '../utils/consts';
+import { PickDateAndTime } from './date-time-picker';
 import { NoteForDriver } from './note-for-driver';
 
 const VehiclesChoices = () => {
@@ -11,8 +12,9 @@ const VehiclesChoices = () => {
     const [selected, setSelectedItem] = useState<Vehicle | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [showDriverNote, setShowDriverNote] = useState(false);
+    const [showCalendar, setShowCalendar] = useState(false);
     const bottomSheetRef = useRef<BottomSheet>(null);
-    const snapPoints = useMemo(() => ['20%', '50%', '70%'], [])
+    const snapPoints = useMemo(() => ['20%', '52%', '75%'], [])
 
     //Fetching data
     const getVehicles = async () => {
@@ -44,8 +46,16 @@ const VehiclesChoices = () => {
         setShowDriverNote(true)
     }
 
+    const handlePressCalendar = () => {
+        setShowCalendar(true)
+    }
+
     if (showDriverNote) return (
         <NoteForDriver />
+    )
+
+    if (showCalendar) return (
+        <PickDateAndTime />
     )
 
     return (
@@ -61,7 +71,7 @@ const VehiclesChoices = () => {
                         <TouchableOpacity style={{
                             flexDirection: 'row', alignItems: 'center',
                             ...(selected?.id === item.id && { backgroundColor: '#E6E6FA' })
-                            , borderWidth: selected?.id === item.id ? 1 : 0
+                            , borderWidth: selected?.id === item.id ? 0.8 : 0,
                         }}
                             onPress={() => setSelectedItem(item)}
                         >
@@ -82,7 +92,31 @@ const VehiclesChoices = () => {
                 >
                 </FlatList>
 
-                <View style={{ padding: 20, flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 15 }}>
+                    <View style={{alignItems: 'center', flexDirection: 'row',}}>
+                        <Image source={require('../images/google-map-screen/cash-icon.png')}
+                            style={{ width: 15, height: 15, marginLeft: 30, marginRight: 15 }} />
+                        <Text style={{ fontSize: 15, fontWeight: 'bold'}}>
+                            Tiền mặt
+                        </Text>
+                    </View>
+                    <View style={{ width: 1, backgroundColor: 'gray', }} />
+                    <View>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold'}}>
+                            Ưu đãi
+                        </Text>
+                    </View>
+                    <View style={{ width: 1, backgroundColor: 'gray', }} />
+                    <Pressable
+                        onPress={handlePressNote}
+                    >
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', marginRight: 50 }}>
+                            Ghi chú
+                        </Text>
+                    </Pressable>
+                </View>
+
+                <View style={{ padding: 15, flexDirection: 'row', alignItems: 'center' }}>
                     <Pressable style={{
                         alignItems: 'center',
                         paddingVertical: 12,
@@ -95,8 +129,9 @@ const VehiclesChoices = () => {
                         disabled={!selected}>
                         <Text style={{ fontWeight: 'bold', color: 'white' }}>Đặt xe ngay</Text>
                     </Pressable>
-                    <Pressable onPress={handlePressNote}>
-                        <Image source={require('../images/google-map-screen/note-for-driver.png')} style={{ width: 30, height: 30, marginLeft: 20 }} />
+                    <Pressable onPress={handlePressCalendar}>
+                        <Image source={require('../images/google-map-screen/calendar.png')}
+                            style={{ width: 30, height: 30, marginLeft: 20 }} />
                     </Pressable>
                 </View>
             </View>

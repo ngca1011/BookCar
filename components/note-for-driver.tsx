@@ -6,7 +6,7 @@ import { VehiclesChoices } from "./vehicles-choices";
 
 const NoteForDriver = () => {
     const bottomSheetRef = useRef<BottomSheet>(null);
-    const snapPoints = useMemo(() => ['25%', '40%'], []);
+    const snapPoints = useMemo(() => ['20%'], []);
     const [value, onChangeText] = useState<string>();
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
 

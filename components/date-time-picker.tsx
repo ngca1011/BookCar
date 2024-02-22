@@ -1,31 +1,67 @@
-import React, { useState } from "react"
+import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet"
+import React, { useCallback, useMemo, useRef, useState } from "react"
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import DatePicker from 'react-native-date-picker'
+import { VehiclesChoices } from "./vehicles-choices"
 
 
 const PickDateAndTime = () => {
     const [date, setDate] = useState(new Date())
+    const bottomSheetRef = useRef<BottomSheet>(null);
+    const snapPoints = useMemo(() => ['40%'], []);
+    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
 
     const handleConfirm = () => {
 
     }
 
+    const renderBackdrop = useCallback(
+        (props: any) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, []
+    )
+
+    const handleBottomSheetClose = () => {
+        setIsBottomSheetOpen(false);
+    };
+
+    const handleBottomSheetOpen = () => {
+        setIsBottomSheetOpen(true);
+    };
+
     return (
-        <View>
-            <DatePicker style={{ alignSelf: 'center', marginTop: 50 }} date={date} onDateChange={setDate} />
-            <View style={{ padding: 30 }}>
-                <Pressable style={{
-                    alignItems: 'center',
-                    paddingVertical: 12,
-                    paddingHorizontal: 12,
-                    borderRadius: 4,
-                    backgroundColor: '#00008B',
+        <>
+            <BottomSheet
+                ref={bottomSheetRef}
+                index={0}
+                snapPoints={snapPoints}
+                backdropComponent={renderBackdrop}
+                enablePanDownToClose={true}
+                onChange={(index) => {
+                    if (index === -1) {
+                        handleBottomSheetClose();
+                    } else {
+                        handleBottomSheetOpen();
+                    }
                 }}
-                    onPress={handleConfirm}>
-                    <Text style={{ fontWeight: 'bold', color: 'white' }}>Xác nhận</Text>
-                </Pressable>
-            </View>
-        </View>
+            >
+                <DatePicker style={{ alignSelf: 'center', marginTop: 50 }} date={date} onDateChange={setDate} />
+                <View style={{ padding: 30 }}>
+                    <Pressable style={{
+                        alignItems: 'center',
+                        paddingVertical: 12,
+                        paddingHorizontal: 12,
+                        borderRadius: 4,
+                        backgroundColor: '#00008B',
+                    }}
+                        onPress={handleConfirm}>
+                        <Text style={{ fontWeight: 'bold', color: 'white' }}>Xác nhận</Text>
+                    </Pressable>
+                </View>
+            </BottomSheet>
+
+            {!isBottomSheetOpen && (
+                <VehiclesChoices />
+            )}
+        </>
     )
 }
 
