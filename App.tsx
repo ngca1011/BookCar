@@ -7,6 +7,7 @@ import { Home } from './screens/home-screen';
 import { GooglemapScreen } from './screens/map-input-screen';
 import { MapviewScreen } from './screens/map-view-screen';
 
+
 export type RootStackParamList = {
   Home: undefined;
   Googlemap: undefined;

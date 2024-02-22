@@ -1,7 +1,5 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import React from "react";
 import { RootStackParamList } from "../app";
-import { GooglemapScreenNavigationProp } from "./consts";
 
 export type Coordinates = {
   latitude: number;
@@ -17,8 +15,8 @@ export type Vehicle = {
   image_path: any,
 }
 export interface VehiclesChoicesProps {
-  showDateTimePicker: boolean;
-  setShowDateTimePicker: React.Dispatch<React.SetStateAction<boolean>>;
+  darkenMap: boolean;
+  setDarkenMap: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export type GooglemapScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;

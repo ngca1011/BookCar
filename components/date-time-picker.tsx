@@ -22,7 +22,7 @@ const PickDateAndTime = () => {
                     backgroundColor: '#00008B',
                 }}
                     onPress={handleConfirm}>
-                    <Text style={{ fontWeight: 'bold', color: 'white' }}>Đặt xe ngay</Text>
+                    <Text style={{ fontWeight: 'bold', color: 'white' }}>Xác nhận</Text>
                 </Pressable>
             </View>
         </View>

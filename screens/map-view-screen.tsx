@@ -1,18 +1,20 @@
 import { GOOGLEMAP_API_KEY } from '@env';
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import { View } from 'react-native';
+import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
-import { PickDateAndTime } from '../components/date-time-picker';
 import { useLocationContext } from '../components/location-context';
 import { VehiclesChoices } from '../components/vehicles-choices';
+import BottomSheet, { BottomSheetFlatList, BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet';
+
 
 const MapviewScreen = (): ReactElement => {
   const { origin, destination } = useLocationContext();
   const mapRef = useRef<MapView>(null);
   const [mapReady, setMapReady] = useState(false);
-  const [isLoading, setLoading] = useState(true);
-  const [showDateTimePicker, setShowDateTimePicker] = useState(false);
+  const [darkenMap, setDarkenMap] = useState(false);
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const snapPoints = useMemo(() => ['40%', '50%'], [])
 
   //Zooming directions
   useEffect(() => {
@@ -35,10 +37,10 @@ const MapviewScreen = (): ReactElement => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ flex: 0.5 }}>
+      <View style={{ flex: 1 }}>
         <MapView
           ref={mapRef}
-          style={{ flex: 1, opacity: showDateTimePicker ? 0.5 : 1 }}
+          style={{ flex: 1, opacity: darkenMap ? 0.5 : 1 }}
           initialRegion={{
             latitude: origin?.location?.lat ?? 0,
             longitude: origin?.location?.lng ?? 0,
@@ -83,13 +85,13 @@ const MapviewScreen = (): ReactElement => {
             />
           }
         </MapView>
-      </View>
-      <View style={{ flex: 0.5, backgroundColor: 'white' }}>
-        {showDateTimePicker ? (
-          <PickDateAndTime />
-        ) :
-          (<VehiclesChoices showDateTimePicker={showDateTimePicker} setShowDateTimePicker={setShowDateTimePicker} />)
-        }
+        <BottomSheet
+          ref={bottomSheetRef}
+          index={1}
+          snapPoints={snapPoints}
+        >
+          <VehiclesChoices darkenMap={darkenMap} setDarkenMap={setDarkenMap} />
+        </BottomSheet>
       </View>
     </View>
   );
