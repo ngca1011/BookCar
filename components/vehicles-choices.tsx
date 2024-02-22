@@ -7,7 +7,6 @@ import { PickDateAndTime } from './date-time-picker';
 import { NoteForDriver } from './note-for-driver';
 
 const VehiclesChoices = () => {
-
     const [data, setData] = useState<Vehicle[]>([]);
     const [selected, setSelectedItem] = useState<Vehicle | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -15,6 +14,8 @@ const VehiclesChoices = () => {
     const [showCalendar, setShowCalendar] = useState(false);
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => ['20%', '52%', '75%'], [])
+    const [date, setDate] = useState(new Date())
+    const [text, setText] = useState<string | undefined>();
 
     //Fetching data
     const getVehicles = async () => {
@@ -51,11 +52,11 @@ const VehiclesChoices = () => {
     }
 
     if (showDriverNote) return (
-        <NoteForDriver />
+        <NoteForDriver text={text} setText={setText} />
     )
 
     if (showCalendar) return (
-        <PickDateAndTime />
+        <PickDateAndTime date={date} setDate={setDate} />
     )
 
     return (
@@ -93,16 +94,16 @@ const VehiclesChoices = () => {
                 </FlatList>
 
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 15 }}>
-                    <View style={{alignItems: 'center', flexDirection: 'row',}}>
+                    <View style={{ alignItems: 'center', flexDirection: 'row', }}>
                         <Image source={require('../images/google-map-screen/cash-icon.png')}
                             style={{ width: 15, height: 15, marginLeft: 30, marginRight: 15 }} />
-                        <Text style={{ fontSize: 15, fontWeight: 'bold'}}>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
                             Tiền mặt
                         </Text>
                     </View>
                     <View style={{ width: 1, backgroundColor: 'gray', }} />
                     <View>
-                        <Text style={{ fontSize: 15, fontWeight: 'bold'}}>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
                             Ưu đãi
                         </Text>
                     </View>

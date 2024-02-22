@@ -24,3 +24,13 @@ export interface GooglemapScreenProps {
   navigation: GooglemapScreenNavigationProp;
 }
 
+export interface PickDateAndTimeProps {
+  date: Date,
+  setDate: React.Dispatch<React.SetStateAction<Date>>
+}
+
+export interface NoteForDriverProps {
+  text: string | undefined,
+  setText: React.Dispatch<React.SetStateAction<string | undefined>>
+}
+

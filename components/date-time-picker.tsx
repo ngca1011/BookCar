@@ -2,17 +2,17 @@ import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet"
 import React, { useCallback, useMemo, useRef, useState } from "react"
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import DatePicker from 'react-native-date-picker'
+import { PickDateAndTimeProps } from "../utils/consts"
 import { VehiclesChoices } from "./vehicles-choices"
 
-
-const PickDateAndTime = () => {
-    const [date, setDate] = useState(new Date())
+const PickDateAndTime: React.FC<PickDateAndTimeProps> = ({ date, setDate }) => {
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => ['40%'], []);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
+    const [datetmp, setDateTmp] = useState(new Date())
 
     const handleConfirm = () => {
-
+        setDate(datetmp)
     }
 
     const renderBackdrop = useCallback(
@@ -43,7 +43,7 @@ const PickDateAndTime = () => {
                     }
                 }}
             >
-                <DatePicker style={{ alignSelf: 'center', marginTop: 50 }} date={date} onDateChange={setDate} />
+                <DatePicker style={{ alignSelf: 'center', marginTop: 50 }} date={datetmp} onDateChange={setDateTmp} />
                 <View style={{ padding: 30 }}>
                     <Pressable style={{
                         alignItems: 'center',

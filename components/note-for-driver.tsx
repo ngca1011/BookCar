@@ -1,21 +1,22 @@
 import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
+import { NoteForDriverProps } from "../utils/consts";
 import { VehiclesChoices } from "./vehicles-choices";
 
 
-const NoteForDriver = () => {
+const NoteForDriver: React.FC<NoteForDriverProps> = ({ text, setText }) => {
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => ['20%'], []);
-    const [value, onChangeText] = useState<string>();
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
+    const [texttmp, setTextTmp] = useState<string | undefined>();
 
     const renderBackdrop = useCallback(
         (props: any) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, []
     )
 
     const handlePressConfirm = () => {
-
+        setText(texttmp)
     }
 
     const handleBottomSheetClose = () => {
@@ -56,8 +57,8 @@ const NoteForDriver = () => {
                             multiline
                             numberOfLines={5}
                             maxLength={100}
-                            onChangeText={text => onChangeText(text)}
-                            value={value}
+                            onChangeText={texttmp => setText(texttmp)}
+                            value={texttmp}
                             placeholder="Nhập ghi chú cho tài xế"
                             style={{ textAlignVertical: 'top' }}
                         />
