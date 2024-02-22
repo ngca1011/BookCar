@@ -1,12 +1,10 @@
 import { GOOGLEMAP_API_KEY } from '@env';
-import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import { View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import { useLocationContext } from '../components/location-context';
 import { VehiclesChoices } from '../components/vehicles-choices';
-import BottomSheet, { BottomSheetFlatList, BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet';
-
 
 const MapviewScreen = (): ReactElement => {
   const { origin, destination } = useLocationContext();
@@ -83,7 +81,7 @@ const MapviewScreen = (): ReactElement => {
             />
           }
         </MapView>
-          <VehiclesChoices darkenMap={darkenMap} setDarkenMap={setDarkenMap} />
+        <VehiclesChoices darkenMap={darkenMap} setDarkenMap={setDarkenMap} />
       </View>
     </View>
   );

@@ -1,13 +1,17 @@
-import BottomSheet from "@gorhom/bottom-sheet";
-import React, { useMemo, useRef, useState } from "react";
+import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 
 
 const NoteForDriver = () => {
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => ['25%', '50%'], []);
-
     const [value, onChangeText] = useState<string>();
+
+    const renderBackdrop = useCallback(
+        (props: any) =>
+            <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />,[]
+    )
 
     const handlePressConfirm = () => {
 
@@ -18,6 +22,7 @@ const NoteForDriver = () => {
             ref={bottomSheetRef}
             index={0}
             snapPoints={snapPoints}
+            backdropComponent={renderBackdrop}
         >
             <View style={{ alignItems: 'center' }}>
                 <View style={{
@@ -25,7 +30,7 @@ const NoteForDriver = () => {
                     borderRadius: 5,
                     borderColor: '#999',
                     marginBottom: 16,
-                    width: '90%', 
+                    width: '90%',
                     height: '40%'
                 }}>
                     <TextInput
@@ -36,7 +41,7 @@ const NoteForDriver = () => {
                         onChangeText={text => onChangeText(text)}
                         value={value}
                         placeholder="Nhập ghi chú cho tài xế"
-                        style={{textAlignVertical: 'top'}}
+                        style={{ textAlignVertical: 'top' }}
                     />
                 </View>
                 <Pressable style={{

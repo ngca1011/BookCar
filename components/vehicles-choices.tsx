@@ -49,7 +49,7 @@ const VehiclesChoices: React.FC<VehiclesChoicesProps> = ({ darkenMap, setDarkenM
     )
 
     return (
-        <BottomSheet 
+        <BottomSheet
             ref={bottomSheetRef}
             index={0}
             snapPoints={snapPoints}>
@@ -105,3 +105,4 @@ const VehiclesChoices: React.FC<VehiclesChoicesProps> = ({ darkenMap, setDarkenM
 }
 
 export { VehiclesChoices };
+
