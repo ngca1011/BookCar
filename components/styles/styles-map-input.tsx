@@ -4,15 +4,16 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    justifyContent: 'space-between',
     backgroundColor: 'white',
   },
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 145,
     borderRadius: 4,
-    backgroundColor: '#0096FF',
+    backgroundColor: '#00008B',
   },
   text: {
     fontSize: 16,
@@ -25,7 +26,7 @@ export const styles = StyleSheet.create({
 export const fromInputBoxStyles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingTop: 5,
+    paddingTop: 15,
     flex: 0,
   },
   textInput: {
@@ -42,7 +43,7 @@ export const fromInputBoxStyles = StyleSheet.create({
 export const toInputBoxStyles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingTop: 5,
+    paddingTop: 15,
     flex: 0,
   },
   textInput: {

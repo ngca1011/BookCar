@@ -2,8 +2,7 @@ import { GOOGLEMAP_API_KEY } from '@env';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { GooglemapScreenNavigationProp } from '../utils/consts';
-import { Coordinates } from '../utils/consts';
+import { Coordinates, GooglemapScreenNavigationProp } from '../utils/consts';
 import { useLocationContext } from './location-context';
 import { fromInputBoxStyles, styles, toInputBoxStyles } from './styles/styles-map-input';
 
@@ -20,13 +19,19 @@ const GooglePlacesInput: React.FC<GooglePlacesInputProps> = ({ currentLocation, 
     geometry: { location: { lat: currentLocation.latitude, lng: currentLocation.longitude } },
   };
 
+  const paris = {
+    type: 'favorite',
+    description: 'Paris, France',
+    geometry: { location: { lat: 48.864716, lng: 2.349014 } },
+  }
+
   const handleConfirm = (): void => {
     navigation.navigate('Googlemap_view');
   };
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 0.7 }}>
+      <View>
         <GooglePlacesAutocomplete
           placeholder={'Điểm đi?'}
           styles={fromInputBoxStyles}
@@ -42,9 +47,8 @@ const GooglePlacesInput: React.FC<GooglePlacesInputProps> = ({ currentLocation, 
           nearbyPlacesAPI="GooglePlacesSearch"
           predefinedPlaces={[currentPlace]}
           debounce={400} />
-      </View>
-      <View>
-        <GooglePlacesAutocomplete
+          
+          <GooglePlacesAutocomplete
           placeholder="Điểm đến?"
           styles={toInputBoxStyles}
           fetchDetails={true}
@@ -53,12 +57,14 @@ const GooglePlacesInput: React.FC<GooglePlacesInputProps> = ({ currentLocation, 
             key: GOOGLEMAP_API_KEY,
             language: 'en',
           }}
+          predefinedPlaces={[paris]}
           nearbyPlacesAPI="GooglePlacesSearch" />
       </View>
-      <View style={{ paddingTop: 25 }}>
+      
+      <View style={{ paddingBottom: 50, alignItems: 'center'}}>
         {origin && destination &&
           <Pressable style={styles.button} onPress={handleConfirm}>
-            <Text style={styles.text}>Confirm</Text>
+            <Text style={styles.text}>Xác nhận</Text>
           </Pressable>}
       </View>
     </View>
