@@ -13,8 +13,6 @@ const MapviewScreen = (): ReactElement => {
   const mapRef = useRef<MapView>(null);
   const [mapReady, setMapReady] = useState(false);
   const [darkenMap, setDarkenMap] = useState(false);
-  const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ['40%', '50%'], [])
 
   //Zooming directions
   useEffect(() => {
@@ -85,13 +83,7 @@ const MapviewScreen = (): ReactElement => {
             />
           }
         </MapView>
-        <BottomSheet
-          ref={bottomSheetRef}
-          index={1}
-          snapPoints={snapPoints}
-        >
           <VehiclesChoices darkenMap={darkenMap} setDarkenMap={setDarkenMap} />
-        </BottomSheet>
       </View>
     </View>
   );
