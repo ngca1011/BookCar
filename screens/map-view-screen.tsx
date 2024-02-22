@@ -81,7 +81,7 @@ const MapviewScreen = (): ReactElement => {
             />
           }
         </MapView>
-        <VehiclesChoices darkenMap={darkenMap} setDarkenMap={setDarkenMap} />
+        <VehiclesChoices />
       </View>
     </View>
   );

@@ -2,17 +2,17 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { Vehicle, VehiclesChoicesProps } from '../utils/consts';
+import { Vehicle } from '../utils/consts';
 import { NoteForDriver } from './note-for-driver';
 
-const VehiclesChoices: React.FC<VehiclesChoicesProps> = ({ darkenMap, setDarkenMap }) => {
+const VehiclesChoices = () => {
 
     const [data, setData] = useState<Vehicle[]>([]);
     const [selected, setSelectedItem] = useState<Vehicle | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [showDriverNote, setShowDriverNote] = useState(false);
     const bottomSheetRef = useRef<BottomSheet>(null);
-    const snapPoints = useMemo(() => ['50%', '70%'], [])
+    const snapPoints = useMemo(() => ['20%', '50%', '70%'], [])
 
     //Fetching data
     const getVehicles = async () => {

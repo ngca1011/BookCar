@@ -14,10 +14,6 @@ export type Vehicle = {
   price: number,
   image_path: any,
 }
-export interface VehiclesChoicesProps {
-  darkenMap: boolean;
-  setDarkenMap: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
 export type GooglemapScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
