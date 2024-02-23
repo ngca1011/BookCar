@@ -24,11 +24,3 @@ export interface GooglemapScreenProps {
   navigation: GooglemapScreenNavigationProp;
 }
 
-export interface PickDateAndTimeProps {
-  date: React.MutableRefObject<Date>,
-}
-
-export interface NoteForDriverProps {
-  text: string | undefined
-}
-

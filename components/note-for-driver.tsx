@@ -1,22 +1,23 @@
 import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
-import { NoteForDriverProps } from "../utils/consts";
 import { VehiclesChoices } from "./vehicles-choices";
+import { useVehicleRequestContext } from "./vehicles-request-data";
 
 
-const NoteForDriver: React.FC<NoteForDriverProps> = ({ text }) => {
+const NoteForDriver = () => {
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => ['20%'], []);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
-    const [texttmp, setTextTmp] = useState<string | undefined>();
+    const [texttmp, setTextTmp] = useState<string | undefined>(undefined);
+    const { text, setText } = useVehicleRequestContext();
 
     const renderBackdrop = useCallback(
         (props: any) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, []
     )
 
     const handlePressConfirm = () => {
-        text = texttmp
+        setText(texttmp ? texttmp : "")
         setIsBottomSheetOpen(false)
         bottomSheetRef?.current?.close();
     }
@@ -63,7 +64,7 @@ const NoteForDriver: React.FC<NoteForDriverProps> = ({ text }) => {
                             value={texttmp}
                             placeholder="Nhập ghi chú cho tài xế"
                             style={{ textAlignVertical: 'top' }}
-                            defaultValue={text}
+                            defaultValue={text ? text : undefined}
                         />
                     </View>
                     <Pressable style={{

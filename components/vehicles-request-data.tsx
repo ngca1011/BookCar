@@ -4,8 +4,8 @@ import { Vehicle } from '../utils/consts';
 interface VehicleRequestContextType {
     date: Date;
     setDate: Dispatch<SetStateAction<Date>>;
-    text: string | null;
-    setText: Dispatch<SetStateAction<string | null>>;
+    text: string;
+    setText: Dispatch<SetStateAction<string>>;
     vehicleType: Vehicle | undefined;
     setVehicleType: Dispatch<SetStateAction<Vehicle | undefined>>;
 }
@@ -13,7 +13,7 @@ interface VehicleRequestContextType {
 const VehicleRequestContext = createContext<VehicleRequestContextType>({
     date: new Date(),
     setDate: () => { },
-    text: null,
+    text: "",
     setText: () => { },
     vehicleType: undefined,
     setVehicleType: () => { }
@@ -23,7 +23,7 @@ const useVehicleRequestContext = () => useContext(VehicleRequestContext);
 
 const VehicleRequestContextProvider = ({ children }: { children: ReactNode }) => {
     const [date, setDate] = useState(new Date());
-    const [text, setText] = useState<string | null>(null);
+    const [text, setText] = useState<string>("");
     const [vehicleType, setVehicleType] = useState<Vehicle | undefined>();
 
     return (

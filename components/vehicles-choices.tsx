@@ -9,13 +9,13 @@ import { useVehicleRequestContext } from './vehicles-request-data';
 
 const VehiclesChoices = () => {
     const [data, setData] = useState<Vehicle[]>([]);
-    const [selected, setSelectedItem] = useState<Vehicle | null>(null);
+    const [selected, setSelectedItem] = useState<Vehicle | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(true);
     const [showDriverNote, setShowDriverNote] = useState(false);
     const [showCalendar, setShowCalendar] = useState(false);
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => ['20%', '52%', '75%'], [])
-    const { date,  } = useVehicleRequestContext();
+    const { setVehicleType } = useVehicleRequestContext();
 
     //Fetching data
     const getVehicles = async () => {
@@ -40,7 +40,7 @@ const VehiclesChoices = () => {
     )
 
     const handlePressConfirm = () => {
-
+        setVehicleType(selected)
     }
 
     const handlePressNote = () => {
