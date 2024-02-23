@@ -23,7 +23,7 @@ const GooglePlacesInput: React.FC<GooglePlacesInputProps> = ({ currentLocation, 
     type: 'favorite',
     description: 'Paris, France',
     geometry: { location: { lat: 48.864716, lng: 2.349014 } },
-  }
+  };
 
   const handleConfirm = (): void => {
     navigation.navigate('Googlemap_view');
@@ -46,9 +46,10 @@ const GooglePlacesInput: React.FC<GooglePlacesInputProps> = ({ currentLocation, 
           }}
           nearbyPlacesAPI="GooglePlacesSearch"
           predefinedPlaces={[currentPlace]}
-          debounce={400} />
-          
-          <GooglePlacesAutocomplete
+          debounce={400}
+        />
+
+        <GooglePlacesAutocomplete
           placeholder="Điểm đến?"
           styles={toInputBoxStyles}
           fetchDetails={true}
@@ -58,18 +59,19 @@ const GooglePlacesInput: React.FC<GooglePlacesInputProps> = ({ currentLocation, 
             language: 'en',
           }}
           predefinedPlaces={[paris]}
-          nearbyPlacesAPI="GooglePlacesSearch" />
+          nearbyPlacesAPI="GooglePlacesSearch"
+        />
       </View>
-      
-      <View style={{ paddingBottom: 50, alignItems: 'center'}}>
-        {origin && destination &&
+
+      <View style={{ paddingBottom: 50, alignItems: 'center' }}>
+        {origin && destination && (
           <Pressable style={styles.button} onPress={handleConfirm}>
             <Text style={styles.text}>Xác nhận</Text>
-          </Pressable>}
+          </Pressable>
+        )}
       </View>
     </View>
   );
 };
 
 export { GooglePlacesInput };
-

@@ -30,4 +30,3 @@ const NavigationBar = (): React.JSX.Element => {
 };
 
 export { NavigationBar };
-

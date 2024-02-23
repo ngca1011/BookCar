@@ -1,5 +1,5 @@
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../app";
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../app';
 
 export type Coordinates = {
   latitude: number;
@@ -9,11 +9,11 @@ export type Coordinates = {
 };
 
 export type Vehicle = {
-  id: string,
-  title: string,
-  price: number,
-  image_path: any,
-}
+  id: string;
+  title: string;
+  price: number;
+  image_path: any;
+};
 
 export type GooglemapScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -23,4 +23,3 @@ export type HomeProps = {
 export interface GooglemapScreenProps {
   navigation: GooglemapScreenNavigationProp;
 }
-

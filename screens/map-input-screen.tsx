@@ -54,6 +54,4 @@ const GooglemapScreen: React.FC<GooglemapScreenProps> = ({ navigation }) => {
   );
 };
 
-
 export { GooglemapScreen };
-

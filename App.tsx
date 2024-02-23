@@ -7,7 +7,6 @@ import { Home } from './screens/home-screen';
 import { GooglemapScreen } from './screens/map-input-screen';
 import { MapviewScreen } from './screens/map-view-screen';
 
-
 export type RootStackParamList = {
   Home: undefined;
   Googlemap: undefined;
@@ -22,7 +21,8 @@ const App = (): React.JSX.Element => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-          <Stack.Screen name="Googlemap"
+          <Stack.Screen
+            name="Googlemap"
             component={GooglemapScreen}
             options={{
               title: 'Chọn điểm đến',
@@ -36,7 +36,8 @@ const App = (): React.JSX.Element => {
             }}
           />
           <Stack.Screen
-            name="Googlemap_view" component={MapviewScreen}
+            name="Googlemap_view"
+            component={MapviewScreen}
             options={{
               title: '',
               headerTransparent: true,

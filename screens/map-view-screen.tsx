@@ -19,16 +19,16 @@ const MapviewScreen = (): ReactElement => {
     mapRef.current?.fitToSuppliedMarkers(['origin', 'destination'], {
       edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
     });
-  }, [origin, destination, mapReady,]);
+  }, [origin, destination, mapReady]);
 
   const handleMapReady = () => {
     setMapReady(true);
-  }
+  };
 
   //Handle Directionserror
   const handleDirectionsError = (error: any) => {
     //TODO: handle error here
-    console.log("No directions found")
+    console.log('No directions found');
   };
 
   return (
@@ -67,9 +67,12 @@ const MapviewScreen = (): ReactElement => {
               identifier="origin"
             />
           )}
-          {origin && destination &&
+          {origin && destination && (
             <MapViewDirections
-              origin={{ latitude: origin?.location?.lat ?? 0, longitude: origin?.location?.lng ?? 0 }}
+              origin={{
+                latitude: origin?.location?.lat ?? 0,
+                longitude: origin?.location?.lng ?? 0,
+              }}
               destination={{
                 latitude: destination?.location?.lat ?? 0,
                 longitude: destination?.location?.lng ?? 0,
@@ -79,7 +82,7 @@ const MapviewScreen = (): ReactElement => {
               strokeColor="hotpink"
               onError={handleDirectionsError}
             />
-          }
+          )}
         </MapView>
         <VehicleRequestContextProvider>
           <VehiclesChoices />
@@ -90,4 +93,3 @@ const MapviewScreen = (): ReactElement => {
 };
 
 export { MapviewScreen };
-
