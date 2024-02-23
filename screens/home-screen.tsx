@@ -1,6 +1,7 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationBar } from '../components/home-screen/navigationbar';
 import { HomeProps } from '../utils/consts';
+import { newLocal } from '../components/styles/home-sreen-styles';
 
 const Home = ({ navigation }: HomeProps): React.JSX.Element => {
   const styles = newLocal;
@@ -23,40 +24,42 @@ const Home = ({ navigation }: HomeProps): React.JSX.Element => {
           <Text style={styles.textContainer}> Bản đồ </Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.container}>
-        <View style={styles.iconContainer}>
-          <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
-          <Text>Ô tô</Text>
+      <View style={{ flexDirection: 'column', alignContent: 'flex-start', paddingTop: 20 }}>
+        <View style={styles.container}>
+          <View style={styles.iconContainer}>
+            <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
+            <Text style={styles.text}>Ô tô</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
+            <Text style={styles.text}>Xe máy</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
+            <Text style={styles.text}>Xe sân bay</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
+            <Text style={styles.text}>Tiện chuyến</Text>
+          </View>
         </View>
-        <View style={styles.iconContainer}>
-          <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
-          <Text>Ô tô</Text>
-        </View>
-        <View style={styles.iconContainer}>
-          <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
-          <Text>Ô tô</Text>
-        </View>
-        <View style={styles.iconContainer}>
-          <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
-          <Text>Ô tô</Text>
-        </View>
-      </View>
-      <View style={styles.container}>
-        <View style={styles.iconContainer}>
-          <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
-          <Text>Ô tô</Text>
-        </View>
-        <View style={styles.iconContainer}>
-          <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
-          <Text>Ô tô</Text>
-        </View>
-        <View style={styles.iconContainer}>
-          <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
-          <Text>Ô tô</Text>
-        </View>
-        <View style={styles.iconContainer}>
-          <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
-          <Text>Ô tô</Text>
+        <View style={styles.container}>
+          <View style={styles.iconContainer}>
+            <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
+            <Text style={styles.text}>Xe tuyến</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
+            <Text style={styles.text}>Xe tải</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
+            <Text style={styles.text}>Xe ba gác</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Image source={require('../images/home-screen/small-car.png')} style={styles.icon} />
+            <Text style={styles.text}>Giao hàng</Text>
+          </View>
         </View>
       </View>
     </View>
@@ -64,46 +67,3 @@ const Home = ({ navigation }: HomeProps): React.JSX.Element => {
 };
 
 export { Home };
-
-const newLocal = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    padding: 15,
-    top: 20,
-  },
-  iconContainer: {
-    marginRight: 20,
-    alignItems: 'center',
-    paddingLeft: 12,
-  },
-  icon: {
-    width: 60,
-    height: 60,
-  },
-  navigationContainer: {
-    width: 350,
-    height: 45,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    marginHorizontal: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: 25,
-    zIndex: 1,
-    position: 'absolute',
-    backgroundColor: 'white',
-    top: 50,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    borderWidth: 0.5,
-    borderColor: 'black',
-    borderRadius: 6,
-    left: 160,
-    color: 'green',
-  },
-  textContainer: {
-    fontWeight: 'bold',
-  },
-});
