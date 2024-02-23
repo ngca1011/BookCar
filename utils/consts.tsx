@@ -25,12 +25,10 @@ export interface GooglemapScreenProps {
 }
 
 export interface PickDateAndTimeProps {
-  date: Date,
-  setDate: React.Dispatch<React.SetStateAction<Date>>
+  date: React.MutableRefObject<Date>,
 }
 
 export interface NoteForDriverProps {
-  text: string | undefined,
-  setText: React.Dispatch<React.SetStateAction<string | undefined>>
+  text: string | undefined
 }
 

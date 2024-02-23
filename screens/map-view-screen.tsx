@@ -5,12 +5,12 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import { useLocationContext } from '../components/location-context';
 import { VehiclesChoices } from '../components/vehicles-choices';
+import { VehicleRequestContextProvider } from '../components/vehicles-request-data';
 
 const MapviewScreen = (): ReactElement => {
   const { origin, destination } = useLocationContext();
   const mapRef = useRef<MapView>(null);
   const [mapReady, setMapReady] = useState(false);
-  const [darkenMap, setDarkenMap] = useState(false);
 
   //Zooming directions
   useEffect(() => {
@@ -36,7 +36,7 @@ const MapviewScreen = (): ReactElement => {
       <View style={{ flex: 1 }}>
         <MapView
           ref={mapRef}
-          style={{ flex: 1, opacity: darkenMap ? 0.5 : 1 }}
+          style={{ flex: 1 }}
           initialRegion={{
             latitude: origin?.location?.lat ?? 0,
             longitude: origin?.location?.lng ?? 0,
@@ -81,7 +81,9 @@ const MapviewScreen = (): ReactElement => {
             />
           }
         </MapView>
-        <VehiclesChoices />
+        <VehicleRequestContextProvider>
+          <VehiclesChoices />
+        </VehicleRequestContextProvider>
       </View>
     </View>
   );

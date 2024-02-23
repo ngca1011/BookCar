@@ -5,14 +5,16 @@ import DatePicker from 'react-native-date-picker'
 import { PickDateAndTimeProps } from "../utils/consts"
 import { VehiclesChoices } from "./vehicles-choices"
 
-const PickDateAndTime: React.FC<PickDateAndTimeProps> = ({ date, setDate }) => {
+const PickDateAndTime: React.FC<PickDateAndTimeProps> = ({ date }) => {
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => ['40%'], []);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
     const [datetmp, setDateTmp] = useState(new Date())
 
     const handleConfirm = () => {
-        setDate(datetmp)
+        date.current = datetmp
+        setIsBottomSheetOpen(false)
+        bottomSheetRef?.current?.close();
     }
 
     const renderBackdrop = useCallback(

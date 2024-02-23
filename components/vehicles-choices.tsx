@@ -5,6 +5,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { Vehicle } from '../utils/consts';
 import { PickDateAndTime } from './date-time-picker';
 import { NoteForDriver } from './note-for-driver';
+import { useVehicleRequestContext } from './vehicles-request-data';
 
 const VehiclesChoices = () => {
     const [data, setData] = useState<Vehicle[]>([]);
@@ -14,8 +15,7 @@ const VehiclesChoices = () => {
     const [showCalendar, setShowCalendar] = useState(false);
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => ['20%', '52%', '75%'], [])
-    const [date, setDate] = useState(new Date())
-    const [text, setText] = useState<string | undefined>();
+    const { date,  } = useVehicleRequestContext();
 
     //Fetching data
     const getVehicles = async () => {
@@ -52,11 +52,11 @@ const VehiclesChoices = () => {
     }
 
     if (showDriverNote) return (
-        <NoteForDriver text={text} setText={setText} />
+        <NoteForDriver />
     )
 
     if (showCalendar) return (
-        <PickDateAndTime date={date} setDate={setDate} />
+        <PickDateAndTime />
     )
 
     return (

@@ -5,7 +5,7 @@ import { NoteForDriverProps } from "../utils/consts";
 import { VehiclesChoices } from "./vehicles-choices";
 
 
-const NoteForDriver: React.FC<NoteForDriverProps> = ({ text, setText }) => {
+const NoteForDriver: React.FC<NoteForDriverProps> = ({ text }) => {
     const bottomSheetRef = useRef<BottomSheet>(null);
     const snapPoints = useMemo(() => ['20%'], []);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
@@ -16,7 +16,9 @@ const NoteForDriver: React.FC<NoteForDriverProps> = ({ text, setText }) => {
     )
 
     const handlePressConfirm = () => {
-        setText(texttmp)
+        text = texttmp
+        setIsBottomSheetOpen(false)
+        bottomSheetRef?.current?.close();
     }
 
     const handleBottomSheetClose = () => {
@@ -57,10 +59,11 @@ const NoteForDriver: React.FC<NoteForDriverProps> = ({ text, setText }) => {
                             multiline
                             numberOfLines={5}
                             maxLength={100}
-                            onChangeText={texttmp => setText(texttmp)}
+                            onChangeText={texttmp => setTextTmp(texttmp)}
                             value={texttmp}
                             placeholder="Nhập ghi chú cho tài xế"
                             style={{ textAlignVertical: 'top' }}
+                            defaultValue={text}
                         />
                     </View>
                     <Pressable style={{
