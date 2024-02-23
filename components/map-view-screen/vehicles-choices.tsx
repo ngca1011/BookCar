@@ -2,7 +2,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { Vehicle } from '../utils/consts';
+import { Vehicle } from '../../utils/consts';
 import { PickDateAndTime } from './date-time-picker';
 import { NoteForDriver } from './note-for-driver';
 import { useVehicleRequestContext } from './vehicles-request-data';
@@ -88,7 +88,7 @@ const VehiclesChoices = () => {
         <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 15 }}>
           <View style={{ alignItems: 'center', flexDirection: 'row' }}>
             <Image
-              source={require('../images/google-map-screen/cash-icon.png')}
+              source={require('../../images/google-map-screen/cash-icon.png')}
               style={{ width: 15, height: 15, marginLeft: 30, marginRight: 15 }}
             />
             <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Tiền mặt</Text>
@@ -120,7 +120,7 @@ const VehiclesChoices = () => {
           </Pressable>
           <Pressable onPress={handlePressCalendar}>
             <Image
-              source={require('../images/google-map-screen/calendar.png')}
+              source={require('../../images/google-map-screen/calendar.png')}
               style={{ width: 30, height: 30, marginLeft: 20 }}
             />
           </Pressable>

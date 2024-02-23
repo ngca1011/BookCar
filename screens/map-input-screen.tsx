@@ -2,7 +2,7 @@ import Geolocation from '@react-native-community/geolocation';
 import React, { useEffect, useState } from 'react';
 import { Alert, Platform, View } from 'react-native';
 import { PERMISSIONS, RESULTS, request } from 'react-native-permissions';
-import { GooglePlacesInput } from '../components/map-input';
+import { GooglePlacesInput } from '../components/map-input-screen/map-input';
 import { Coordinates } from '../utils/consts';
 import { GooglemapScreenProps } from '../utils/consts';
 

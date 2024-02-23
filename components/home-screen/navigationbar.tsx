@@ -12,7 +12,7 @@ const NavigationBar = (): React.JSX.Element => {
       }}
     >
       <Image
-        source={require('../images/home-screen/user-icon.png')}
+        source={require('../../images/home-screen/user-icon.png')}
         style={{
           width: 40,
           height: 40,

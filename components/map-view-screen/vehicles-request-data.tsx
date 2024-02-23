@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
-import { Vehicle } from '../utils/consts';
+import { Vehicle } from '../../utils/consts';
 
 interface VehicleRequestContextType {
   date: Date;

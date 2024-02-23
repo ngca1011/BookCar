@@ -3,9 +3,9 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
-import { useLocationContext } from '../components/location-context';
-import { VehiclesChoices } from '../components/vehicles-choices';
-import { VehicleRequestContextProvider } from '../components/vehicles-request-data';
+import { useLocationContext } from '../components/map-input-screen/location-context';
+import { VehiclesChoices } from '../components/map-view-screen/vehicles-choices';
+import { VehicleRequestContextProvider } from '../components/map-view-screen/vehicles-request-data';
 
 const MapviewScreen = (): ReactElement => {
   const { origin, destination } = useLocationContext();

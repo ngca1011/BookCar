@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { NavigationBar } from '../components/navigationbar';
+import { NavigationBar } from '../components/home-screen/navigationbar';
 import { HomeProps } from '../utils/consts';
 
 const Home = ({ navigation }: HomeProps): React.JSX.Element => {
