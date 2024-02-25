@@ -36,7 +36,7 @@ const VehiclesChoices = () => {
 
   if (isLoading) return <ActivityIndicator />;
 
-  const handlePressConfirm = () => {};
+  const handlePressConfirm = () => { };
 
   const handlePressNote = () => {
     setShowDriverNote(true);
@@ -82,8 +82,10 @@ const VehiclesChoices = () => {
               </View>
 
               <Text style={{ marginRight: 10, fontWeight: 'bold', fontSize: 16 }}>
-                {Math.round(distance) * item.price_ratio * 10000}đ
+                {(Math.round(distance) * item.price_ratio * 10000).toLocaleString('vi-VN')}đ
               </Text>
+
+
             </TouchableOpacity>
           )}
         ></FlatList>
