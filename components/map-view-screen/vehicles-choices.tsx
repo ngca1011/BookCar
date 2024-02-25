@@ -6,16 +6,17 @@ import { Vehicle } from '../../utils/consts';
 import { PickDateAndTime } from './date-time-picker';
 import { NoteForDriver } from './note-for-driver';
 import { useVehicleRequestContext } from './vehicles-request-data';
+import { useLocationContext } from '../map-input-screen/location-context';
 
 const VehiclesChoices = () => {
   const [data, setData] = useState<Vehicle[]>([]);
-  const [selected, setSelectedItem] = useState<Vehicle | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [showDriverNote, setShowDriverNote] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ['20%', '52%', '75%'], []);
-  const { setVehicleType } = useVehicleRequestContext();
+  const snapPoints = useMemo(() => ['20%', '52%'], []);
+  const { vehicleType, setVehicleType } = useVehicleRequestContext();
+  const { distance } = useLocationContext();
 
   //Fetching data
   const getVehicles = async () => {
@@ -35,9 +36,7 @@ const VehiclesChoices = () => {
 
   if (isLoading) return <ActivityIndicator />;
 
-  const handlePressConfirm = () => {
-    setVehicleType(selected);
-  };
+  const handlePressConfirm = () => {};
 
   const handlePressNote = () => {
     setShowDriverNote(true);
@@ -52,7 +51,7 @@ const VehiclesChoices = () => {
   if (showCalendar) return <PickDateAndTime />;
 
   return (
-    <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints}>
+    <BottomSheet ref={bottomSheetRef} index={1} snapPoints={snapPoints}>
       <View>
         <FlatList
           data={data}
@@ -62,23 +61,28 @@ const VehiclesChoices = () => {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                ...(selected?.id === item.id && { backgroundColor: '#E6E6FA' }),
-                borderWidth: selected?.id === item.id ? 0.8 : 0,
+                justifyContent: 'space-between',
+                ...(vehicleType?.id === item.id && { backgroundColor: '#E6E6FA' }),
+                borderWidth: vehicleType?.id === item.id ? 0.8 : 0,
               }}
-              onPress={() => setSelectedItem(item)}
+              onPress={() => setVehicleType(item)}
             >
-              <Image
-                style={{ width: 100, height: 100, resizeMode: 'contain' }}
-                source={{ uri: `https://storage.googleapis.com/bookcar_images/images/google-map-screen/${item.type}.png` }}
-              />
-  
-              <View style={{ marginLeft: 15 }}>
-                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{item.title}</Text>
-                <Text>Giá siêu tốt</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Image
+                  style={{ width: 100, height: 100, resizeMode: 'contain' }}
+                  source={{
+                    uri: `https://storage.googleapis.com/bookcar_images/images/google-map-screen/${item.type}.png`,
+                  }}
+                />
+
+                <View style={{ marginLeft: 15 }}>
+                  <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{item.title}</Text>
+                  <Text>Giá siêu tốt</Text>
+                </View>
               </View>
 
-              <Text style={{ marginLeft: 150, fontWeight: 'bold', fontSize: 16 }}>
-                {item.price_ratio * 30000}đ
+              <Text style={{ marginRight: 10, fontWeight: 'bold', fontSize: 16 }}>
+                {Math.round(distance) * item.price_ratio * 10000}đ
               </Text>
             </TouchableOpacity>
           )}
@@ -110,10 +114,10 @@ const VehiclesChoices = () => {
               paddingHorizontal: 120,
               borderRadius: 4,
               backgroundColor: '#00008B',
-              opacity: selected ? 1 : 0.5,
+              opacity: vehicleType ? 1 : 0.5,
             }}
             onPress={handlePressConfirm}
-            disabled={!selected}
+            disabled={!vehicleType}
           >
             <Text style={{ fontWeight: 'bold', color: 'white' }}>Đặt xe ngay</Text>
           </Pressable>

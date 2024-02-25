@@ -13,6 +13,8 @@ interface LocationContextType {
   destination: Location | null;
   setOriginLocation: (data: any, details: any) => void;
   setDestinationLocation: (data: any, details: any) => void;
+  distance: number;
+  setDistance: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const LocationContext = createContext<LocationContextType>({
@@ -20,6 +22,8 @@ const LocationContext = createContext<LocationContextType>({
   destination: null,
   setOriginLocation: () => {},
   setDestinationLocation: () => {},
+  distance: -1,
+  setDistance: () => {},
 });
 
 const useLocationContext = () => useContext(LocationContext);
@@ -27,6 +31,7 @@ const useLocationContext = () => useContext(LocationContext);
 const LocationProvider = ({ children }: { children: ReactNode }) => {
   const [origin, setOrigin] = useState<Location | null>(null);
   const [destination, setDestination] = useState<Location | null>(null);
+  const [distance, setDistance] = useState(-1);
 
   const setOriginLocation = (data: any, details: any) => {
     setOrigin((prevOrigin) => ({
@@ -45,7 +50,14 @@ const LocationProvider = ({ children }: { children: ReactNode }) => {
   };
   return (
     <LocationContext.Provider
-      value={{ origin, destination, setOriginLocation, setDestinationLocation }}
+      value={{
+        origin,
+        destination,
+        setOriginLocation,
+        setDestinationLocation,
+        distance,
+        setDistance,
+      }}
     >
       {children}
     </LocationContext.Provider>

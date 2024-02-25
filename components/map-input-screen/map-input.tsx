@@ -3,8 +3,9 @@ import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { Coordinates, GooglemapScreenNavigationProp } from '../../utils/consts';
-import { useLocationContext } from './location-context';
 import { fromInputBoxStyles, styles, toInputBoxStyles } from '../styles/styles-map-input';
+import { useLocationContext } from './location-context';
+import { Dispatch } from 'react';
 
 export interface GooglePlacesInputProps {
   currentLocation: Coordinates;
@@ -12,7 +13,8 @@ export interface GooglePlacesInputProps {
 }
 
 const GooglePlacesInput: React.FC<GooglePlacesInputProps> = ({ currentLocation, navigation }) => {
-  const { origin, destination, setOriginLocation, setDestinationLocation } = useLocationContext();
+  const { origin, destination, setOriginLocation, setDestinationLocation, distance, setDistance } =
+    useLocationContext();
 
   const currentPlace = {
     description: 'Vị trí hiện tại',
@@ -25,8 +27,18 @@ const GooglePlacesInput: React.FC<GooglePlacesInputProps> = ({ currentLocation, 
     geometry: { location: { lat: 48.864716, lng: 2.349014 } },
   };
 
-  const handleConfirm = (): void => {
-    navigation.navigate('Googlemap_view');
+  const handleConfirm = async (): Promise<void> => {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/directions/json?origin=${origin?.location?.lat},${origin?.location?.lng}&destination=${destination?.location?.lat},${destination?.location?.lng}&key=${GOOGLEMAP_API_KEY}`
+      );
+      const responseData = await response.json();
+      setDistance(responseData.routes[0].legs[0].distance.value / 1000);
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      if (distance) navigation.navigate('Googlemap_view');
+    }
   };
 
   return (
