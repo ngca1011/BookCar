@@ -20,13 +20,12 @@ const VehiclesChoices = () => {
   //Fetching data
   const getVehicles = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/vehicles/');
+      const response = await fetch('http://127.0.0.1:8000/cabs/');
       const json = await response.json();
-      setData(json.vehicles);
+      setData(json.cabs);
+      setIsLoading(false);
     } catch (error: any) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -70,16 +69,16 @@ const VehiclesChoices = () => {
             >
               <Image
                 style={{ width: 100, height: 100, resizeMode: 'contain' }}
-                source={{ uri: item.image_path }}
+                source={{ uri: `https://storage.googleapis.com/bookcar_images/images/google-map-screen/${item.type}.png` }}
               />
-
+  
               <View style={{ marginLeft: 15 }}>
                 <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{item.title}</Text>
                 <Text>Giá siêu tốt</Text>
               </View>
 
               <Text style={{ marginLeft: 150, fontWeight: 'bold', fontSize: 16 }}>
-                {item.price}đ
+                {item.price_ratio * 30000}đ
               </Text>
             </TouchableOpacity>
           )}

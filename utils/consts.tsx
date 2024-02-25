@@ -11,8 +11,8 @@ export type Coordinates = {
 export type Vehicle = {
   id: string;
   title: string;
-  price: number;
-  image_path: any;
+  price_ratio: number;
+  type: string;
 };
 
 export type GooglemapScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
