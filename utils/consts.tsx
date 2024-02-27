@@ -15,11 +15,6 @@ export type Vehicle = {
   type: string;
 };
 
-export type GooglemapScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
-
-export type HomeProps = {
-  navigation: GooglemapScreenNavigationProp;
+export type ScreenProps = {
+  navigation: any;
 };
-export interface GooglemapScreenProps {
-  navigation: GooglemapScreenNavigationProp;
-}

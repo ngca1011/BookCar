@@ -1,9 +1,9 @@
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationBar } from '../components/home-screen/navigationbar';
-import { HomeProps } from '../utils/consts';
 import { newLocal } from '../components/styles/home-sreen-styles';
+import { ScreenProps } from '../utils/consts';
 
-const Home = ({ navigation }: HomeProps): React.JSX.Element => {
+const Home = ({ navigation }: ScreenProps): React.JSX.Element => {
   const styles = newLocal;
 
   const handlePress = (): void => {
