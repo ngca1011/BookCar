@@ -8,9 +8,11 @@ import { LoginScreen } from './screens/login-screen';
 import { GooglemapScreen } from './screens/map-input-screen';
 import { MapviewScreen } from './screens/map-view-screen';
 import { AuthContextProvider } from './components/authentication-context';
+import { RegisterScreen } from './components/login-screen/register';
 
 export type RootStackParamList = {
   Login: undefined;
+  Register: undefined;
   Home: undefined;
   Googlemap: undefined;
   Googlemap_view: undefined;
@@ -26,6 +28,7 @@ const App = (): React.JSX.Element => {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
             <Stack.Screen
               name="Googlemap"
