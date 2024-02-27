@@ -2,13 +2,20 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationBar } from '../components/home-screen/navigationbar';
 import { newLocal } from '../components/styles/home-sreen-styles';
 import { ScreenProps } from '../utils/consts';
+import { useAuthContext } from '../components/authentication-context';
+import { useEffect } from 'react';
 
 const Home = ({ navigation }: ScreenProps): React.JSX.Element => {
   const styles = newLocal;
+  const { isLoggedIn } = useAuthContext()
 
   const handlePress = (): void => {
     navigation.navigate('Googlemap');
   };
+
+  useEffect(() => {
+    if (!isLoggedIn) navigation.navigate('Login')
+  }, [isLoggedIn])
 
   return (
     <View

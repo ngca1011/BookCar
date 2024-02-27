@@ -7,6 +7,7 @@ import { PickDateAndTime } from './date-time-picker';
 import { NoteForDriver } from './note-for-driver';
 import { useVehicleRequestContext } from './vehicles-request-data';
 import { useLocationContext } from '../map-input-screen/location-context';
+import axios from 'axios';
 
 const VehiclesChoices = () => {
   const [data, setData] = useState<Vehicle[]>([]);
@@ -21,9 +22,8 @@ const VehiclesChoices = () => {
   //Fetching data
   const getVehicles = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/cabs/');
-      const json = await response.json();
-      setData(json.cabs);
+      const response = await axios.get('http://127.0.0.1:8000/cabs/');
+      setData(response.data.cabs);
       setIsLoading(false);
     } catch (error: any) {
       console.log(error);

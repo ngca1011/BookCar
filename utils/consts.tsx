@@ -1,6 +1,3 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../app';
-
 export type Coordinates = {
   latitude: number;
   longitude: number;
