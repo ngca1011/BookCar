@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Image, Pressable, Text, TextInput, View } from 'react-native';
+import PhoneInput from 'react-native-phone-number-input';
 
 const RegisterScreen = ({ route, navigation }: { route: any, navigation: any }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
+    const phoneInput = useRef<PhoneInput>(null);
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [formattedValue, setFormattedValue] = useState("");
+    const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true);
 
     const handleRegister = () => {
-        // Implement your register logic here
+        if (phoneInput.current) {
+            const isValid = phoneInput.current?.isValidNumber(phoneNumber);
+            setIsValidPhoneNumber(isValid);
+            console.log(isValid);
+            if (!isValid) return;
+        }
     };
 
     return (
         <View>
             <Text style={{ fontSize: 18, marginBottom: 10 }}>Đăng kí</Text>
-
-            
 
             <View style={{ marginBottom: 10 }}>
                 <Text style={{ marginBottom: 5 }}>Username:</Text>
@@ -46,14 +53,27 @@ const RegisterScreen = ({ route, navigation }: { route: any, navigation: any }) 
             </View>
 
             <View style={{ marginBottom: 10 }}>
-                <Text style={{ marginBottom: 5 }}>Phone Number:</Text>
-                <TextInput
-                    style={{ borderWidth: 1, borderColor: 'gray', padding: 10 }}
-                    value={phoneNumber}
-                    onChangeText={setPhoneNumber}
-                    keyboardType="phone-pad"
+                <PhoneInput
+                    ref={phoneInput}
+                    defaultValue={phoneNumber}
+                    defaultCode="DE"
+                    layout="first"
+                    onChangeText={(text) => {
+                        setPhoneNumber(text);
+                        setIsValidPhoneNumber(true); 
+                    }}
+                    onChangeFormattedText={(text) => {
+                        setFormattedValue(text);
+                    }}
+                    withDarkTheme
+                    withShadow
+                    autoFocus
                 />
             </View>
+
+            {!isValidPhoneNumber && (
+                <Text style={{ color: 'red', marginBottom: 10 }}>Invalid phone number</Text>
+            )}
 
             <View style={{ marginBottom: 20 }}>
                 <Text style={{ marginBottom: 5 }}>Password:</Text>

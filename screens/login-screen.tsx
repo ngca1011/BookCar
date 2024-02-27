@@ -29,7 +29,6 @@ const LoginScreen = ({ navigation }: ScreenProps) => {
 
         try {
             const response = await axios.get(`http://127.0.0.1:8000/api/check_user_exists/${username}/`);
-            console.log(username, response.data.exists);
             navigation.navigate('Register', {username})
             if (response.data.exists) setContinueLogin(true);
         } catch (error: any) {
